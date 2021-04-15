@@ -7,7 +7,7 @@ require_once("./Nissan.php");
 class Main 
 {
     public function output(){
-        $honda = new Honda;
+        $honda = new Honda();
         $nissan = new Nissan();
         $ferrari = new Ferrari();
 
