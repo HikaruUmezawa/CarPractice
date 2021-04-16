@@ -3,6 +3,8 @@ require_once("./Car.php");
 require_once("./Ferrari.php");
 require_once("./Honda.php");
 require_once("./Nissan.php");
+require_once("./Calucurator.php");
+
 
 class Main 
 {
@@ -21,7 +23,13 @@ class Main
         echo "--------Q2-------- <br>";
         echo "[Ferrari] 車高：".$ferrari->height."mm　加速度：".$ferrari->speed."m/s <br>"; 
         $ferrari->liftUp();
-        echo "[Ferrari] 車高：".$ferrari->height."mm　加速度：".$ferrari->speed."m/s <br>"; 
+        echo "[Ferrari] 車高：".$ferrari->height."mm　加速度：".$ferrari->speed."m/s <br>";
+        
+        //Q3
+        echo "--------Q3-------- <br>";
+        $calucurator = new Calucurator();
+        $calucurator->outputResult();
+        
 
     }
 }

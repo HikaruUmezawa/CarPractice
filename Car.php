@@ -6,12 +6,13 @@ class Car{
     public float $speed;
     public int $price;
 
-    public function __construct($capacity,$speed,$price)
+    public function __construct($capacity,$speed,$max,$min)
     {
         $this->capacity = $capacity;
         $this->speed = $speed;
-        $this->price = $price;
+        $this->price = mt_rand($max,$min);
     }
+
 
     public function pressAccelerator(){
         return;

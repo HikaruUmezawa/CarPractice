@@ -5,8 +5,10 @@
  {
     public function __construct()
     {
-        parent::__construct(5,5.4,200);
+        parent::__construct(5,5.4,200,300);
     }
+
+    
  }
  
 ?>
