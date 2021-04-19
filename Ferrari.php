@@ -8,7 +8,7 @@
 
     public function __construct()
     {
-        parent::__construct(2,9.5,3000,4000);
+        parent::__construct(2,9.5,3000,4000,"Ferrari");
         $this->height = 150;
         $this->isUpped = false;
     }

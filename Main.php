@@ -29,6 +29,23 @@ class Main
         echo "--------Q3-------- <br>";
         $calucurator = new Calucurator();
         $calucurator->outputResult();
+
+        //Q4
+        echo "--------Q4-------- <br>";
+        $nissan->findAccident();
+        echo "<br>";
+        $honda->outPutSpeed();
+        $nissan->outPutSpeed();
+        $ferrari->outPutSpeed();
+        $honda->outPutCrewNum();
+        $nissan->outPutCrewNum();
+        $ferrari->outPutCrewNum();
+        echo "<br>";
+        $honda->decelerate();
+        $nissan->decelerate();
+        $ferrari->decelerate();
+        
+        
         
 
     }
