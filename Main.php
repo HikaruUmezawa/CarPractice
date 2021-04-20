@@ -3,6 +3,7 @@ require_once("./Car.php");
 require_once("./Ferrari.php");
 require_once("./Honda.php");
 require_once("./Nissan.php");
+require_once("./Toyota.php");
 require_once("./Calucurator.php");
 
 
@@ -44,8 +45,89 @@ class Main
         $honda->decelerate();
         $nissan->decelerate();
         $ferrari->decelerate();
+
+        //Q5
+        echo "--------Q5-------- <br>";
+        $toyota = new Toyota();
+        $toyota->outPutPrice();
+        $toyota->outPutSpeed();
         
+        echo "<br>";
+
+        //レースを実行する
+        //距離を決める
+        $distance = $calucurator->defineDistance();
+        //各インスタンスを配列に入れる
+        $cars = array($honda,$nissan,$ferrari,$toyota);
+
+        foreach ($cars as $car) {
+
+            $car->outPutCrewNum();
+            $car->decelerate();
+
+            //最高速度表示
+            $car->outPutMaxSpeed();
+
+            //各車が最高速度に到達するまでの時間と距離を計算
+            $car->pressAccelerator();
+            //各車が停止するまでの時間と距離を計算
+            $car->pressBrake();
+            //各車のブレーキの回数を決める
+            $car->defineBrakeTimes();
+
+            //アクセル中、ブレーキ中の総時間と総距離を計算
+            $acceleDistance = $car->distanceToMax;
+            $acceleTime = $car->timeToMax;
+            $brakingDistance = 0;
+            $brakingTime = 0;
+
+            //ブレーキ回数分ループ
+            for ($i=0; $i < $car->brakeTimes ; $i++) { 
+                $acceleDistance += $car->distanceToMax;
+                $acceleTime += $car->timeToMax;
+                $brakingDistance += $car->distanceToStop;
+                $brakingTime += $car->timeToStop;  
+            }
+
+            $driveDistance = round($acceleDistance + $brakingDistance);
+            
+            //最高速度で移動した時間と距離を計算
+            $maxSpeedDistance = $distance - $driveDistance;
+
+            $maxSpeedTime = round($maxSpeedDistance / ($car->maxSpeed * 1000 / 60 / 60)); //秒
+
+            //完走した時間を計算
+            $car->totalTime = $maxSpeedTime + round($acceleTime + $brakingTime); //秒
+
+            //完走した時間を変換
+            $car->convertedTime = $calucurator->convertTime($car->totalTime);
+
+            //表示
+            echo $car->name."の完走時間は".$car->convertedTime."です。<br>";
+            echo "<br>";
+
+        }
+
+        //順位用配列にいれる
+        $count = 0;
+        foreach ($cars as $car) {
+            $count ++;
+            $times[$count] = array('name' => $car->name, 'totalTime' => $car->totalTime);
+        }
         
+        //ソート用配列  
+        foreach ($times as $key => $value) {
+            $sort[$key] = $value['totalTime'];
+        }
+        
+        array_multisort($sort, SORT_ASC, $times);
+
+        //順位表示  
+        foreach ($times as $key => $value) {
+            $key = $key +1;
+            echo $key."位は".$value['name']."です。<br>";
+        }
+
         
 
     }

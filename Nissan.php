@@ -5,7 +5,7 @@
  {
     public function __construct()
     {
-        parent::__construct(5,5.4,200,300,"Nissan");
+        parent::__construct(5,5.4,200,300,"Nissan",220);
     }
 
     public function findAccident()

@@ -36,6 +36,7 @@ class Calucurator
         
     }
 
+    //平均価格を計算
     private function calAvgPrice()
     {
         list($total,$count) = $this->calTotalPrice();
@@ -46,6 +47,7 @@ class Calucurator
         return array($total,$avg);
     }
 
+    //結果を出力
     public function outputResult()
     {
         list($total,$avg) = $this->calAvgPrice();
@@ -57,6 +59,22 @@ class Calucurator
         ;
     }
 
+    //レースの距離を決める
+    public function defineDistance(){
+        //10,000メートルから1,000,000メートルの間でランダム
+        $disstance = rand(1,100)*10000;
+        echo "レースの距離は".number_format($disstance)."mです。<br>";
+        return $disstance;
+    }
+
+    //完走時間を秒から変換する
+    public function convertTime($time){
+        $hours = floor( $time / 3600 );
+        $minutes = floor( ( $time / 60 ) % 60 );
+        $seconds = $time % 60;
+
+        return $hours."時間".$minutes."分".$seconds."秒";
+    }
 
 
 

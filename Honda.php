@@ -5,7 +5,7 @@
  {
     public function __construct()
     {
-        parent::__construct(8,4.3,600,700,"Honda");
+        parent::__construct(8,4.3,600,700,"Honda",200);
     }
 
  }
