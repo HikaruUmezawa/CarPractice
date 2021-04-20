@@ -75,7 +75,7 @@ class Main
             //各車のブレーキの回数を決める
             $car->defineBrakeTimes();
 
-            //アクセル中、ブレーキ中の総時間と総距離を計算
+            //加速中、ブレーキ中の総時間と総距離を計算
             $acceleDistance = $car->distanceToMax;
             $acceleTime = $car->timeToMax;
             $brakingDistance = 0;
@@ -89,10 +89,18 @@ class Main
                 $brakingTime += $car->timeToStop;  
             }
 
+            //加速中、ブレーキ中に進んだ距離
             $driveDistance = round($acceleDistance + $brakingDistance);
+            echo $car->name."が加速中とブレーキ中に進んだ距離は".number_format($driveDistance)."mです。<br>";
             
             //最高速度で移動した時間と距離を計算
             $maxSpeedDistance = $distance - $driveDistance;
+
+            if ($maxSpeedDistance < 0) {
+                $maxSpeedDistance = 0;
+            }
+
+            echo $car->name."が最高速度で進んだ距離は".number_format($maxSpeedDistance)."mです。<br>";
 
             $maxSpeedTime = round($maxSpeedDistance / ($car->maxSpeed * 1000 / 60 / 60)); //秒
 

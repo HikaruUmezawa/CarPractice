@@ -56,7 +56,7 @@ class Car{
 
     //ブレーキの回数を決める
     public function defineBrakeTimes(){
-        $this->brakeTimes = mt_rand(20,200);
+        $this->brakeTimes = mt_rand(1,100);
         echo $this->name."のブレーキ回数は".$this->brakeTimes."回です。<br>";
     }
 
