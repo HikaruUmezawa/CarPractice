@@ -24,6 +24,7 @@ class Car{
         $this->crewNum = mt_rand(1,$capacity);
         $this->name = $name;
         $this->maxSpeed = $maxSpeed;
+        $this->totalTime = 0;
     }
 
     //乗員前の加速度を表示
@@ -56,26 +57,41 @@ class Car{
 
     //ブレーキの回数を決める
     public function defineBrakeTimes(){
-        $this->brakeTimes = mt_rand(1,100);
-        echo $this->name."のブレーキ回数は".$this->brakeTimes."回です。<br>";
+        $this->brakeTimes = mt_rand(10,30);
+        //echo $this->name."のブレーキ回数は".$this->brakeTimes."回です。<br>";
     }
 
 
     public function pressAccelerator(){
         //最高速度になるまでの距離を計算(メートル)
-        $this->distanceToMax = round(($this->maxSpeed * 1000 / 60 / 60)* ($this->maxSpeed * 1000 / 60 / 60) / $this->speed,1);
-
+        $this->distanceToMax = ($this->maxSpeed * 1000 / 60 / 60)* ($this->maxSpeed * 1000 / 60 / 60) / $this->speed;
         //最高速度になるまでの時間を計算（秒）
-        $this->timeToMax = round(2 * $this->distanceToMax / ($this->maxSpeed * 1000 / 60 / 60),1);
-        
+        $this->timeToMax = 2 * $this->distanceToMax / ($this->maxSpeed * 1000 / 60 / 60);
+
     }
 
     public function pressBrake(){
         //停止するまでの距離を計算
-        $this->distanceToStop = round(($this->maxSpeed * 1000 / 60 / 60) * ($this->maxSpeed * 1000 / 60 / 60) / (2 * 9.8 * 0.7),1); 
+        $this->distanceToStop = ($this->maxSpeed * 1000 / 60 / 60) * ($this->maxSpeed * 1000 / 60 / 60) / (2 * 9.8 * 0.7); 
         //停止するまでの時間を計算
-        $this->timeToStop = round(($this->maxSpeed * 1000 / 60 / 60) / (9.8 * 0.7),1);
+        $this->timeToStop = ($this->maxSpeed * 1000 / 60 / 60) / (9.8 * 0.7);
+
     }
+
+    public function stopOnSignal(){
+        $stopTime = mt_rand(0,100);
+        if ($stopTime == 0) {
+            $this->totalTime = $this->totalTime + 600;
+            echo $this->name."の前でおばあちゃんが転倒！10分のロス！！<br>" ;
+        } elseif($stopTime == 1 | $stopTime == 2 | $stopTime == 3){
+            $this->totalTime = $this->totalTime + 180;
+            echo $this->name."はなが～い信号に捕まり3分止まる。<br>";
+        } else{
+            $this->totalTime = $this->totalTime + 10;
+        }
+        return $this->totalTime;
+    }
+
 }
 
 ?>

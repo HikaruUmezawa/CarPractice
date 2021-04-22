@@ -61,8 +61,8 @@ class Calucurator
 
     //レースの距離を決める
     public function defineDistance(){
-        //10,000メートルから1,000,000メートルの間でランダム
-        $disstance = rand(1,100)*10000;
+        //100,000メートルから500,000メートルの間でランダム
+        $disstance = mt_rand(1,5)*100000;
         echo "レースの距離は".number_format($disstance)."mです。<br>";
         return $disstance;
     }

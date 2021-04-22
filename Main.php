@@ -67,7 +67,6 @@ class Main
 
             //最高速度表示
             $car->outPutMaxSpeed();
-
             //各車が最高速度に到達するまでの時間と距離を計算
             $car->pressAccelerator();
             //各車が停止するまでの時間と距離を計算
@@ -82,15 +81,30 @@ class Main
             $brakingTime = 0;
 
             //ブレーキ回数分ループ
+            $flg = true;
             for ($i=0; $i < $car->brakeTimes ; $i++) { 
                 $acceleDistance += $car->distanceToMax;
                 $acceleTime += $car->timeToMax;
                 $brakingDistance += $car->distanceToStop;
-                $brakingTime += $car->timeToStop;  
+                $brakingTime += $car->timeToStop; 
+                $car->stopOnSignal();
+                 //加速中、ブレーキ中に進んだ距離
+                $driveDistance = round($acceleDistance + $brakingDistance);
+
+                if ($driveDistance > $distance) {
+                    $flg = false;
+                    $driveDistance = $distance;
+                    echo $car->name."のブレーキ回数は".($i+1)."回です。<br>"; 
+                    break;
+                }
+                
             }
 
-            //加速中、ブレーキ中に進んだ距離
-            $driveDistance = round($acceleDistance + $brakingDistance);
+            if ($flg == true) {
+                echo $car->name."のブレーキ回数は".$car->brakeTimes."回です。<br>";
+            }
+            
+            
             echo $car->name."が加速中とブレーキ中に進んだ距離は".number_format($driveDistance)."mです。<br>";
             
             //最高速度で移動した時間と距離を計算
@@ -102,10 +116,13 @@ class Main
 
             echo $car->name."が最高速度で進んだ距離は".number_format($maxSpeedDistance)."mです。<br>";
 
-            $maxSpeedTime = round($maxSpeedDistance / ($car->maxSpeed * 1000 / 60 / 60)); //秒
+            $maxSpeedTime = $maxSpeedDistance / ($car->maxSpeed * 1000 / 60 / 60); //秒
 
+            
             //完走した時間を計算
-            $car->totalTime = $maxSpeedTime + round($acceleTime + $brakingTime); //秒
+            $car->totalTime  += round($maxSpeedTime + $acceleTime + $brakingTime); //秒
+
+            
 
             //完走した時間を変換
             $car->convertedTime = $calucurator->convertTime($car->totalTime);
@@ -117,12 +134,10 @@ class Main
         }
 
         //順位用配列にいれる
-        $count = 0;
         foreach ($cars as $car) {
-            $count ++;
-            $times[$count] = array('name' => $car->name, 'totalTime' => $car->totalTime);
+            $times[] = array('name' => $car->name, 'totalTime' => $car->totalTime);
         }
-        
+
         //ソート用配列  
         foreach ($times as $key => $value) {
             $sort[$key] = $value['totalTime'];

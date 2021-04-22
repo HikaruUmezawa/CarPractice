@@ -11,6 +11,7 @@
         $this->crewNum = mt_rand(1,$this->capacity);
         $this->name = "Toyota";
         $this->maxSpeed = 250;
+        $this->totalTime = 0;
     }
  }
  
